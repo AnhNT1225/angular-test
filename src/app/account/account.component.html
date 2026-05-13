@@ -1,0 +1,286 @@
+<div class="flex items-center justify-center gap-4 shadow-md bg-gray-700 py-2">
+  <div class="nav-img">
+    <img src="../assets/download.png" alt="nav-img" class="w-11 h-11" />
+  </div>
+  <div
+    class="title-search-products text-xl font-semibold text-green-600 tracking-wide"
+  >
+    Banking System
+  </div>
+</div>
+
+<div class="dark:bg-gray-900 mt-6 w-full grid items-center px-4 md:px-0">
+  <div class="flex flex-col items-center justify-center">
+    <div
+      class="relative bg-white shadow-xl rounded xl:w-1/3 w-11/12 py-5 px-4 px-lg-0 my-20 border"
+    >
+      <div
+        class="absolute -top-12 inset-x-0 mx-auto w-28 h-28 bg-white border rounded-full grid items-center justify-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-20 h-20"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
+          />
+        </svg>
+      </div>
+
+      <form
+        [formGroup]="openAccountForm"
+        (ngSubmit)="onSubmit()"
+        class="open-account-form mx-auto mt-12 max-w-xl"
+        autocomplete="off"
+      >
+        <div
+          class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 mx-8 md:mx-6"
+        >
+          <div class="sm:mx-auto sm:w-full sm:max-w-sm sm:col-span-2">
+            <h2
+              class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+            >
+              Open Account
+            </h2>
+          </div>
+          <div>
+            <label
+              for="firstName"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              First name
+            </label>
+            <div class="mt-2.5">
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                formControlName='firstName'
+                autocomplete="given-name"
+                class="block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div id="errorFirstName" class="error-message" *ngIf="getFormControlError('firstName')">
+              {{getFormControlError('firstName')}}
+            </div>
+          </div>
+          <div>
+            <label
+              for="lastName"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Last name
+            </label>
+            <div class="mt-2.5">
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                formControlName="lastName"
+                autocomplete="family-name"
+                class="block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div id="errorLastName" class="error-message" *ngIf="getFormControlError('lastName')">
+              {{getFormControlError('lastName')}}
+            </div>
+          </div>
+          <div>
+            <label
+              for="emailAddress"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Email
+            </label>
+            <div class="mt-2.5">
+              <input
+                type="email"
+                name="emailAddress"
+                id="emailAddress"
+                formControlName='emailAddress'
+                autocomplete="email"
+                class="block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div id="errorEmailAddress" class="error-message" *ngIf="getFormControlError('emailAddress')">
+              {{getFormControlError('emailAddress')}}
+            </div>
+          </div>
+
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Password
+            </label>
+            <div class="mt-2.5">
+              <input
+                type="text"
+                name="password"
+                id="password"
+                formControlName='password'
+                autocomplete="off"
+                class="fake-password block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div id="errorPassword" class="error-message" *ngIf="getFormControlError('password')">
+              {{getFormControlError('password')}}
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="date"
+              class="block text-sm font-semibold leading-6 text-gray-900 mb-2.5"
+            >
+              DOB
+            </label>
+            <div class="input-group">
+              <input
+                autocomplete="off"
+                class="form-control block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="yyyy-mm-dd"
+                name="dob"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                (click)="d.toggle()"
+                [maxDate]="todayDate"
+                formControlName="dob"
+              />
+            </div>
+            <div id="errorDob" class="error-message" *ngIf="getFormControlError('dob')">
+              {{getFormControlError('dob')}}
+            </div>
+          </div>
+          <div>
+            <div class="block text-sm font-semibold leading-6 text-gray-900">
+              Gender
+            </div>
+            <div class="flex gap-x-4 sm:col-span-2 mt-2.5">
+              <div class="flex items-center gap-x-3">
+                <input
+                  id="female"
+                  name="gender"
+                  type="radio"
+                  value="female"
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  formControlName="gender"
+                />
+                <label
+                  for="female"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Female
+                </label>
+              </div>
+              <div class="flex items-center gap-x-3">
+                <input
+                  id="male"
+                  name="gender"
+                  type="radio"
+                  value="male"
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  formControlName="gender"
+                />
+                <label
+                  for="male"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Male
+                </label>
+              </div>
+              <div id="errorGender" class="error-message" *ngIf="getFormControlError('gender')">
+                {{getFormControlError('gender')}}
+            </div>
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="city"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              City
+            </label>
+            <div class="mt-2.5">
+              <input
+                type="text"
+                name="city"
+                id="city"
+                autocomplete="city"
+                formControlName="city"
+                class="block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+            <div id="errorCity" class="error-message" *ngIf="getFormControlError('city')">
+              {{getFormControlError('city')}}
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="address"
+              class="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Address
+            </label>
+            <div class="mt-2.5">
+              <textarea
+                name="address"
+                id="address"
+                rows="4"
+                formControlName="address"
+                class="block w-full rounded-md border px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              ></textarea>
+            </div>
+            <div id="errorAddress" class="error-message" *ngIf="getFormControlError('address')">
+              {{getFormControlError('address')}}
+            </div>
+          </div>
+          <div class="flex gap-x-4 sm:col-span-2">
+            <input
+              id="privacyPolicy"
+              type="checkbox"
+              name="privacyPolicy"
+              class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 mt-1"
+              formControlName="privacyPolicy"
+            />
+            <label for="privacyPolicy" class="text-sm leading-6 text-gray-600">
+              By selecting this, you agree to our privacy policy
+            </label>
+          </div>
+          <div id="errorPrivacy" class="error-message" *ngIf="getFormControlError('privacy')">
+              {{getFormControlError('privacy')}}
+            </div>
+        </div>
+        <div class="mt-10 mx-8 md:mx-6">
+          <button
+            type="submit"
+            [disabled]="openAccountForm.invalid"
+            class="block w-full disabled:opacity-25 rounded-md bg-primary-blue px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-secondary-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-blue"
+          >
+            Create Account
+          </button>
+        </div>
+      </form>
+      <p
+        class="text-sm mt-6 font-medium leading-none text-gray-500 text-center"
+      >
+        Already have an account?
+        <a
+          routerLink="/login"
+          tabindex="0"
+          role="link"
+          aria-label="Sign up here"
+          class="text-sm font-medium leading-none underline text-gray-800 cursor-pointer"
+        >
+          Log in
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

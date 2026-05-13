@@ -1,13 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AngularTestHackerrank</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>BankingSystemApp</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="save-password" content="never" />
+    <meta name="password" content="no" />
+    <meta name="autocomplete" content="off" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body class="">
+    <app-root></app-root>
+    <script>
+      // Remove dark theme class from HTML element
+      document.documentElement.classList.remove("dark");
+
+      // Set theme to light in localStorage
+      localStorage.setItem("theme", "light");
+
+      // Remove any dark mode classes from body
+      document.body.classList.remove("bg-gray-900");
+
+      // Disable system color scheme preference matching
+      if (typeof window !== "undefined" && window.matchMedia) {
+        const colorSchemeQuery = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        );
+        if (colorSchemeQuery.removeEventListener) {
+          // Some browsers support this to disable system theme changes
+          colorSchemeQuery.removeEventListener("change", () => {});
+        }
+      }
+    </script>
+  </body>
 </html>

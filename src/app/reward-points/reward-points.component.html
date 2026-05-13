@@ -1,0 +1,53 @@
+<section class="container mx-auto bg-white dark:bg-gray-900 mb-10">
+  <div class="py-10">
+    <div
+      tabindex="0"
+      role="heading"
+      class="pb-6 border-b text-xl font-bold text-left leading-6 text-primary-blue uppercase lg:px-0 px-6"
+    >
+      Reward Points
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 mt-12">
+      <h2 class="h4">
+        You have <span class="point">{{ rewardPoints }} </span>reward points
+      </h2>
+    </div>
+    <div>
+      <div class="bg-gray-100 p-3 my-4">
+        <p class="pt-2 pb-1 text-lg">
+          Redeem your points for cash. 200 point = 1 dollar
+        </p>
+        <p class="pb-2 text-sm font-bold">
+          You can redeem rewards in multiple of 200
+        </p>
+        <div class="p-2">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="redemptionAmount"
+          >
+            Redemption Amount:
+          </label>
+          <div class="flex">
+            <input
+              class="border border-gray-300 p-2 w-40 rounded"
+              type="number"
+              id="redemptionAmount"
+              [(ngModel)]="redemptionAmount"
+            />
+            <button
+              [disabled]="!redemptionAmount || redemptionAmount % 200 !== 0"
+              class="btn btn-primary w-40 ml-3"
+              (click)="redeemPoints()"
+            >
+              Redeem
+            </button>
+          </div>
+          <label class="text-red-500 text-sm mt-2" *ngIf="getErrorMessage()">
+            {{ getErrorMessage() }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

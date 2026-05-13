@@ -1,0 +1,118 @@
+<section class="container mx-auto bg-white mb-10">
+  <div class="py-10">
+    <div
+      tabindex="0"
+      role="heading"
+      class="pb-6 border-b text-xl font-bold text-left leading-6 text-primary-blue uppercase lg:px-0 px-6"
+    >
+      All Cards
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 mt-12">
+      <div
+        *ngFor="let card of cardList"
+        class="card mb-8 me-6 md:mr-16 rounded-lg border border-gray-200"
+      >
+        <div
+          class="w-full bg-gray-600 rounded-t-lg font-medium tracking-wide px-4"
+          [class.blocked]="card.blocked"
+        >
+          <div
+            class="card-bank-name text-lg text-end font-normal uppercase text-white px-3 py-4"
+          >
+            Hacker Bank
+          </div>
+          <div class="px-3">
+            <img src="../../assets/chip.png" alt="chip" class="w-12 h-9" />
+          </div>
+          <div
+            class="card-no text-xl text-start font-normal uppercase text-white p-3"
+          >
+            {{ formatCardNumber(card.cardNumber.toString()) }}
+          </div>
+          <div class="flex justify-end px-3">
+            <pre class="text-xs text-gray-400 mr-2 pt-1">
+                            VALID THRU
+                        </pre
+            >
+            <p class="card-expire-month-year text-sm text-white">
+              {{ card.expireMonth }}/{{ card.expireYear }}
+            </p>
+          </div>
+          <div class="flex justify-between items-center pb-4 px-3">
+            <div
+              class="card-holder-name text-lg text-start font-normal uppercase text-white"
+            >
+              {{ card.cardHolderName }}
+            </div>
+            <div class="card-cvv text-lg text-start font-normal uppercase">
+              <button
+                (click)="showCvv(card)"
+                class="text-white leading-3 border px-2 py-1 rounded"
+                [id]="'btnShowCvv' + card.cardNumber"
+              >
+                show cvv
+              </button>
+              <span
+                class="text-white leading-3 hidden"
+                [id]="'cvv' + card.cardNumber"
+              >
+                {{ card.cvv }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-lg font-medium tracking-wide px-4 mt-2">
+          <div class="my-4">
+            Account Number :
+            {{ formatAccountNumber(card.accountId.toString()) }}
+          </div>
+          <div class="card-pin my-4" [class.blocked]="card.blocked">
+            <form
+              [formGroup]="cardUpdatePinForms[card.cardNumber]"
+              (ngSubmit)="onSubmit(card)"
+              class="card-update-pin-form flex"
+            >
+              <label for="cardPin"> Card Pin </label>
+              <input
+                id="cardPin"
+                type="number"
+                name="cardPin"
+                formControlName="cardPin"
+                class="w-24 border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 p-2 ml-1"
+              />
+
+              <button
+                type="submit"
+                [disabled]="!cardUpdatePinForms[card.cardNumber].valid"
+                class="ml-6 focus:ring-2 focus:ring-offset-2 focus:ring-secondary-blue text-sm font-semibold uppercase leading-none text-white focus:outline-none bg-primary-blue border rounded hover:bg-secondary-blue p-2 disabled:opacity-25"
+              >
+                Update
+              </button>
+            </form>
+            <div
+              class="error-message"
+              *ngIf="getFormControlError('cardPin', card.cardNumber)"
+            >
+              {{ getFormControlError("cardPin", card.cardNumber) }}
+            </div>
+          </div>
+          <div class="card-block flex justify-end my-2">
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                class="sr-only peer"
+                (ngModelChange)="cardBlockUnblock(card)"
+              />
+              <div
+                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+              ></div>
+              <span class="ml-3 text-sm font-medium text-gray-900">
+                Block
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

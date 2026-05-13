@@ -1,0 +1,113 @@
+<section class="container mx-auto mb-10">
+  <div class="py-10">
+    <div
+      tabindex="0"
+      role="heading"
+      class="pb-6 border-b text-xl font-bold text-left leading-6 text-primary-blue uppercase lg:px-0 px-6"
+    >
+      Beneficiaries
+    </div>
+  </div>
+  <div class="lg:flex mt-12">
+    <div class="lg:w-1/2">
+      <div
+        class="text-base font-bold text-primary-blue uppercase pb-2 mb-6 border-b"
+      >
+        Beneficiary Details
+      </div>
+      <div
+        *ngIf="beneficiaryList && beneficiaryList.length > 0; else elseBlock"
+      >
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">Beneficiary Account ID</th>
+              <th scope="col" class="px-6 py-3">Beneficiary Created on</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              class="bg-white border-b hover:bg-gray-50"
+              *ngFor="let beneficiary of beneficiaryList; let i = index"
+              [draggableItem]="beneficiary"
+              [list]="beneficiaryList"
+              (listChange)="beneficiaryList = $event"
+              appDragDrop
+            >
+              <td scope="row" class="px-6 py-4 font-medium text-gray-900">
+                {{ beneficiary.beneficiaryAccountId }}
+              </td>
+              <td class="px-6 py-4 text-gray-900">
+                {{ beneficiary.dateCreated }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #elseBlock>
+        <div class="font-bold text-center text-lg uppercase">
+          No beneficiaries
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="lg:w-1/2 lg:ml-16">
+      <div
+        class="text-base font-bold text-primary-blue uppercase pb-2 mb-6 border-b"
+      >
+        Add New Beneficiary
+      </div>
+
+      <form
+        [formGroup]="beneficiaryForm"
+        (ngSubmit)="onSubmit()"
+        class="beneficiary-form"
+      >
+        <!-- Custom Dropdown -->
+        <div class="relative">
+          <label
+            for="beneficiaryAccountId"
+            class="text-sm font-medium leading-none text-gray-800"
+          >
+            Beneficiary Account Number
+          </label>
+          <input
+            type="text"
+            formControlName="beneficiaryAccountId"
+            class="border rounded focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+            (focus)="showDropdown = true"
+            (input)="filterDropdown($event)"
+          />
+          <div
+            *ngIf="showDropdown"
+            class="absolute w-full bg-white text-black border mt-1 z-10 max-h-56 overflow-y-auto"
+          >
+            <div
+              *ngFor="let beneficiary of filteredBeneficiaryList"
+              class="px-4 py-2 cursor-pointer hover:bg-gray-200"
+              [draggableItem]="beneficiary"
+              [list]="beneficiaryList"
+              (listChange)="beneficiaryList = $event"
+              appDragDrop
+              (click)="selectBeneficiary(beneficiary)"
+              [isFromDropdown]="true"
+            >
+              {{ beneficiary.beneficiary }}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 mx-8 md:mx-0">
+          <button
+            type="submit"
+            class="block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-blue text-white disabled:opacity-25 bg-primary-blue hover:bg-secondary-blue"
+            [disabled]="!beneficiaryForm.valid"
+          >
+            Add Beneficiary
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

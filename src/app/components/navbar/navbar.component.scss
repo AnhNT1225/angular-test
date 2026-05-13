@@ -1,0 +1,63 @@
+.active {
+  background-color: rgb(203 213 225);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+
+  .checkbox {
+    opacity: 0;
+    position: absolute;
+  }
+
+  .checkbox-label {
+    background-color: #163172;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bi-moon-stars-fill {
+    color: #f1c40f;
+  }
+
+  .bi-sun-fill {
+    color: #f39c12;
+  }
+
+  .checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+  }
+
+  .checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+  }
+}
+
+.toggleThemeButton {
+  position: relative;
+  display: flex;
+  top: 8px;
+
+  @media (max-width: 1024px) {
+    /* Adjust for mobile responsiveness if necessary */
+    margin-left: 10px;
+    margin-right: 0;
+    margin-top: 10px;
+  }
+}

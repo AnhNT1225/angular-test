@@ -1,0 +1,101 @@
+<section class="container mx-auto mb-10">
+  <div class="py-10">
+    <div
+      tabindex="0"
+      role="heading"
+      class="pb-6 border-b text-xl font-bold text-left leading-6 text-primary-blue uppercase"
+    >
+      Personal Dashboard
+    </div>
+    <div class="lg:flex mt-12">
+      <div class="">
+        <div class="font-bold text-2xl text-primary-blue">
+          Hello, {{ account?.firstName }}
+        </div>
+        <div class="lg:flex mt-4 lg:flex-wrap">
+          <div
+            class="rounded-3xl shadow-md flex w-80 py-6 px-4 mr-14 mb-5 lg:mb-0 bg-green-100"
+          >
+            <div>
+              <div class="text-lg text-gray-400 mb-3">Account</div>
+              <div class="font-bold text-4xl">{{ formatedAccountId }}</div>
+            </div>
+          </div>
+          <div
+            class="rounded-3xl shadow-md flex w-80 py-6 px-4 mr-14 mb-5 lg:mb-0 bg-red-100"
+          >
+            <div>
+              <div class="text-lg text-gray-400 mb-3">Balance</div>
+              <div class="font-bold text-4xl">
+                $ {{ account?.balance && numberFormat(account?.balance) }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-3xl shadow-md flex w-80 py-6 px-4 mr-14 mb-5 lg:mb-0 bg-blue-100"
+          >
+            <div>
+              <div class="text-lg text-gray-400 mb-3">Latest Transaction</div>
+              <div class="font-bold text-4xl">
+                {{ account?.totalTransactions }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-3xl shadow-md flex w-80 py-6 px-3 mr-14 mb-5 lg:mb-0 bg-orange-100"
+          >
+            <div>
+              <div class="text-lg text-gray-400 mb-3">Cards</div>
+              <div class="font-bold text-4xl">{{ account?.totalCards }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="transactionsList && transactionsList.length > 0">
+      <div
+        tabindex="0"
+        role="heading"
+        class="pb-6 my-6 border-b text-lg font-bold text-left leading-6 text-primary-blue"
+      >
+        Latest Transactions
+      </div>
+      <div>
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">Transaction ID</th>
+              <th scope="col" class="px-6 py-3">Transaction Date & Time</th>
+              <th scope="col" class="px-6 py-3">Sender Account ID</th>
+              <th scope="col" class="px-6 py-3">Receiver Account ID</th>
+              <th scope="col" class="px-6 py-3">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="bg-white border-b hover:bg-gray-500"
+              *ngFor="let transaction of transactionsList"
+            >
+              <td
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+              >
+                {{ transaction.transactionId }}
+              </td>
+              <td class="px-6 py-4">
+                {{ transaction.dateCreated }}
+              </td>
+              <td class="px-6 py-4">
+                {{ transaction.fromAccountId }}
+              </td>
+              <td class="px-6 py-4">
+                {{ transaction.toAccountId }}
+              </td>
+              <td class="px-6 py-4">${{ transaction.transferAmount }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
